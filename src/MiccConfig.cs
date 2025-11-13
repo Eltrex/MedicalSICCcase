@@ -11,6 +11,8 @@ public class MiccConfig
     public int Loyalty_lvl { get; set; }
     public int CellH { get; set; }
     public int CellV { get; set; }
+    public int ItemWidth { get; set; }
+    public int ItemHeight { get; set; }
     public List<string> Containers { get; set; } = new();
 
     public static MiccConfig Load()
@@ -25,6 +27,8 @@ public class MiccConfig
                 Loyalty_lvl = 1,
                 CellH = 5,
                 CellV = 5,
+                ItemWidth = 2,
+                ItemHeight = 2,
                 Containers = new List<string>()
             };
         }

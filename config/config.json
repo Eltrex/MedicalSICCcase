@@ -1,10 +1,13 @@
 {
-    "price": 1000000,
-    "loyalty_lvl": 1,
-    "cellH": 5,
-    "cellV": 5,
-    "containers": [
-        "5c0a840b86f7742ffa4f2482",
+  "Price": 1000000,
+  "Loyalty_lvl": 1,
+  "CellH": 10,
+  "CellV": 10,
+  "ItemWidth": 2,
+  "ItemHeight": 1,
+  "Containers":
+  [
+    "5c0a840b86f7742ffa4f2482",
         "5b7c710788a4506dec015957"
-    ]
+  ]
 }

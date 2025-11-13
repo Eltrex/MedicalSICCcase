@@ -10,6 +10,7 @@ Converted from the original TypeScript mod (SPT <= 3.11) to a C# server mod for 
 - Uses a configurable loyalty level requirement
 - Lets you set the case grid size (columns × rows)
 - Synchronizes handbook and flea price with your configured price
+ - Dynamically applies grid width/height from config on server load
 
 ## Configure
 - File: `config/config.json` (next to the compiled DLL; keys are case-insensitive)
