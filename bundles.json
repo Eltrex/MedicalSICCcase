@@ -1,0 +1,8 @@
+{
+    "manifest": [
+        {
+            "key": "assets/content/items/containers/item_container_micc/item_container_micc.bundle",
+            "dependencyKeys": []
+        }
+    ]
+}

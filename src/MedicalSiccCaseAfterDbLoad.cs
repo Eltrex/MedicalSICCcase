@@ -45,9 +45,13 @@ public class MedicalSiccCaseAfterDbLoad(
             },
             OverrideProperties = new TemplateItemProperties
             {
-                Name = "Medical SICC",
-                ShortName = "M I C C",
-                Description = "SICC case for medical items."
+                Name = "item_container_micc",
+                ShortName = "item_container_micc",
+                Description = "item_container_micc",
+                Prefab = new Prefab
+                {
+                    Path = "assets/content/items/containers/item_container_micc/item_container_micc.bundle",
+                }
             }
         };
 

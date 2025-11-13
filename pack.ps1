@@ -31,4 +31,19 @@ if (Test-Path $builtConfig) {
   Copy-Item $repoConfig -Destination (Join-Path $dist 'config') -Recurse -Force
 }
 
+Write-Host "[pack] Copying bundles..."
+$builtConfig = Join-Path $outDir 'bundles'
+$repoConfig = Join-Path $root 'bundles'
+if (Test-Path $builtConfig) {
+  Copy-Item $builtConfig -Destination (Join-Path $dist 'bundles') -Recurse -Force
+} elseif (Test-Path $repoConfig) {
+  Copy-Item $repoConfig -Destination (Join-Path $dist 'bundles') -Recurse -Force
+}
+
+Write-Host "[pack] Copying bundles.json..."
+$bundlesJson = Join-Path $root 'bundles.json'
+if (Test-Path $bundlesJson) {
+  Copy-Item $bundlesJson -Destination (Join-Path $dist 'bundles.json') -Force
+}
+
 Write-Host "[pack] Done. Package at: $dist"
