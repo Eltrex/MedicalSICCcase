@@ -50,14 +50,54 @@ public class MedicalSiccCaseAfterDbLoad(
 
         customItemService.CreateItemFromClone(miccClone);
         var items = databaseServer.GetTables().Templates.Items;
-        if (items.ContainsKey(new MongoId(_itemId)))
+        var mid = new MongoId(_itemId);
+        if (items.ContainsKey(mid))
         {
-            System.Console.WriteLine("[MedicalSICCcaseCS] Medical SICC item cloned successfully.");
+            var templateObj = items[mid];
+
+            if (templateObj is TemplateItem item)
+            {
+                try
+                {
+                    var grids = item.Properties.Grids.ToList();
+                    if (grids.Count > 0)
+                    {
+                        grids[0].Properties.CellsH = _config.CellH;
+                        grids[0].Properties.CellsV = _config.CellV;
+                        item.Properties.Grids = grids;
+
+                        System.Console.WriteLine($"[MedicalSICCcaseCS] Medical SICC internal grid set to {_config.CellH}x{_config.CellV}.");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("[MedicalSICCcaseCS] Clone OK but no grids found on item.");
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    System.Console.WriteLine("[MedicalSICCcaseCS] Clone OK but grid resize failed: " + ex.Message);
+                }
+            }
         }
         else
         {
             System.Console.WriteLine("[MedicalSICCcaseCS] Medical SICC item clone FAILED.");
         }
         return Task.CompletedTask;
+    }
+
+    private static void SetInt(object target, string name, int value)
+    {
+        var prop = target.GetType().GetProperty(name);
+        if (prop != null && prop.CanWrite && prop.PropertyType == typeof(int))
+        {
+            prop.SetValue(target, value);
+            return;
+        }
+        var field = target.GetType().GetField(name);
+        if (field != null && field.FieldType == typeof(int))
+        {
+            field.SetValue(target, value);
+        }
     }
 }
