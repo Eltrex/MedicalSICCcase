@@ -154,6 +154,40 @@ public class MedicalSiccCaseAfterDbLoad(
             System.Console.WriteLine("[MedicalSICCcaseCS] Failed to update container slot filters: " + ex.Message);
         }
 
+        // Also allow Medical SICC in extra containers from config
+        foreach (var parentId in _config.Containers.Select(id => new MongoId(id)))
+        {
+            if (!items.TryGetValue(parentId, out var parentObj) || parentObj is not TemplateItem parent)
+            {
+                continue;
+            }
+
+            var parentGrids = parent.Properties.Grids?.ToList() ?? [];
+            if (parentGrids.Count == 0)
+            {
+                continue;
+            }
+
+            var gridFilters = parentGrids[0].Properties.Filters;
+            if (gridFilters == null)
+            {
+                continue;
+            }
+
+            var filterList = gridFilters.ToList();
+            if (filterList.Count == 0)
+            {
+                continue;
+            }
+
+            var allowed = filterList[0].Filter ?? new HashSet<MongoId>();
+            allowed.Add(new MongoId(_itemId)); // allow Medical SICC as content
+            filterList[0].Filter = allowed;
+            parentGrids[0].Properties.Filters = filterList;
+
+            parent.Properties.Grids = parentGrids;
+        }
+
         return Task.CompletedTask;
     }
 }
