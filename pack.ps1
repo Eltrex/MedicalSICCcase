@@ -4,7 +4,7 @@ $ErrorActionPreference = 'Stop'
 # Paths
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $proj = Join-Path $root 'src/MedicalSICCcaseCS.csproj'
-$outDir = Join-Path $root 'src/bin/Release/MedicalSICCcaseCS'
+$outDir = Join-Path $root 'src/bin/Release/MedicalSICCcase'
 $dist = Join-Path $root 'dist/MedicalSICCcase'
 
 Write-Host "[pack] Building Release..."
@@ -19,8 +19,8 @@ if (Test-Path $dist) { Remove-Item -Recurse -Force $dist }
 New-Item -ItemType Directory -Path $dist | Out-Null
 
 Write-Host "[pack] Copying DLL and PDB..."
-Copy-Item (Join-Path $outDir 'MedicalSICCcaseCS.dll') -Destination $dist -Force
-if (Test-Path (Join-Path $outDir 'MedicalSICCcaseCS.pdb')) { Copy-Item (Join-Path $outDir 'MedicalSICCcaseCS.pdb') -Destination $dist -Force }
+Copy-Item (Join-Path $outDir 'MedicalSICCcase.dll') -Destination $dist -Force
+if (Test-Path (Join-Path $outDir 'MedicalSICCcase.pdb')) { Copy-Item (Join-Path $outDir 'MedicalSICCcase.pdb') -Destination $dist -Force }
 
 Write-Host "[pack] Copying config..."
 $builtConfig = Join-Path $outDir 'config'
