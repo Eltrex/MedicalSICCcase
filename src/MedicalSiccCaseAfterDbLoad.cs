@@ -48,9 +48,10 @@ public class MedicalSiccCaseAfterDbLoad(
                 Name = "item_container_micc",
                 ShortName = "item_container_micc",
                 Description = "item_container_micc",
+
                 Prefab = new Prefab
                 {
-                    Path = "assets/content/items/containers/item_container_micc/item_container_micc.bundle",
+                    Path = "assets/content/items/barter/custom_micc/micc_case.bundle",
                 }
             }
         };

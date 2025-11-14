@@ -5,7 +5,7 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $proj = Join-Path $root 'src/MedicalSICCcaseCS.csproj'
 $outDir = Join-Path $root 'src/bin/Release/MedicalSICCcaseCS'
-$dist = Join-Path $root 'dist/MedicalSICCcaseCS'
+$dist = Join-Path $root 'dist/MedicalSICCcase'
 
 Write-Host "[pack] Building Release..."
 dotnet build $proj -c Release | Out-Host

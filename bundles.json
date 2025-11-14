@@ -1,7 +1,7 @@
 {
     "manifest": [
         {
-            "key": "assets/content/items/containers/item_container_micc/item_container_micc.bundle",
+            "key": "assets/content/items/barter/custom_micc/micc_case.bundle",
             "dependencyKeys": []
         }
     ]
