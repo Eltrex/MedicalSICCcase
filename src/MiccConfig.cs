@@ -13,6 +13,7 @@ public class MiccConfig
     public int CellV { get; set; }
     public int ItemWidth { get; set; }
     public int ItemHeight { get; set; }
+    public bool AllowMedBarter { get; set; }
     public List<string> Containers { get; set; } = new();
 
     public static MiccConfig Load()
@@ -29,6 +30,7 @@ public class MiccConfig
                 CellV = 5,
                 ItemWidth = 2,
                 ItemHeight = 2,
+                AllowMedBarter = true,
                 Containers = new List<string>()
             };
         }
