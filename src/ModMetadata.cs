@@ -17,5 +17,5 @@ public record ModMetadata : AbstractModMetadata
     public override Dictionary<string, SemVerRange>? ModDependencies { get; init; } = new();
     public override string? Url { get; init; } = null;
     public override bool? IsBundleMod { get; init; } = true;
-    public override string? License { get; init; } = "NCSA";
+    public override string License { get; init; } = "NCSA";
 }
