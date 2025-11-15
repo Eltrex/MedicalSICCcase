@@ -38,3 +38,5 @@ Bckp/
 dist/
 src/bin
 src/obj
+
+.editorconfig
