@@ -67,7 +67,7 @@ public class MedicalSiccCaseAfterDbLoad(
 
         if (!items.TryGetValue(mid, out var templateObj) || templateObj is not TemplateItem item)
         {
-            System.Console.WriteLine("[MedicalSICCcase] Medical SICC item clone FAILED.");
+            logger.Error("[MedicalSICCcase] Medical SICC item clone FAILED.");
             return Task.CompletedTask;
         }
 
