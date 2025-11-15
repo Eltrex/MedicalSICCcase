@@ -1,8 +1,8 @@
 {
   "Price": 1000000,
   "Loyalty_lvl": 1,
-  "CellH": 10,
-  "CellV": 10,
+  "CellH": 5,
+  "CellV": 5,
   "ItemWidth": 2,
   "ItemHeight": 1,
   "AllowMedBarter": true,

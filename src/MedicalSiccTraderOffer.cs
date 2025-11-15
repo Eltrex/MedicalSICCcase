@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MedicalSICCcaseCS;
+namespace MedicalSICCcase;
 
 // Run after item clone creation (which is PostDBModLoader +1); give higher priority
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 5)]

@@ -4,18 +4,22 @@ using SPTarkov.Server.Core.Models.Eft.Common.Tables;
 using SPTarkov.Server.Core.Models.Common;
 using SPTarkov.Server.Core.Models.Spt.Server;
 using SPTarkov.Server.Core.Models.Spt.Mod;
+using SPTarkov.Server.Core.Models.Logging;
 using SPTarkov.Server.Core.Services.Mod;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SPTarkov.Server.Core.Servers;
+using JetBrains.Annotations;
+using SPTarkov.Server.Core.Models.Utils;
 
-namespace MedicalSICCcaseCS;
+namespace MedicalSICCcase;
 
 [Injectable(TypePriority = OnLoadOrder.PostDBModLoader + 1)]
 public class MedicalSiccCaseAfterDbLoad(
     DatabaseServer databaseServer,
-    CustomItemService customItemService) : IOnLoad
+    CustomItemService customItemService,
+    ISptLogger<MedicalSiccCaseAfterDbLoad> logger) : IOnLoad
 {
     private readonly MiccConfig _config = MiccConfig.Load();
     private readonly string _itemId = "674f974b8c797c96be0b096c"; // Medical SICC mongo id
@@ -63,7 +67,7 @@ public class MedicalSiccCaseAfterDbLoad(
 
         if (!items.TryGetValue(mid, out var templateObj) || templateObj is not TemplateItem item)
         {
-            System.Console.WriteLine("[MedicalSICCcaseCS] Medical SICC item clone FAILED.");
+            System.Console.WriteLine("[MedicalSICCcase] Medical SICC item clone FAILED.");
             return Task.CompletedTask;
         }
 
@@ -87,14 +91,12 @@ public class MedicalSiccCaseAfterDbLoad(
                                 new("543be5664bdc2dd4348b4569"),
                                 new("619cbf7d23893217ec30b689")
                             };
+
                             if (_config.AllowMedBarter)
                             {
                                 filters[0].Filter.Add(new MongoId("57864c8c245977548867e7f1")); // Med Barter
                             }
-                            {
-                                filters[0].Filter.Add(new MongoId("5c0e718186f774199f48c2b3")); // Field Surgical Kit
-                                filters[0].Filter.Add(new MongoId("5c0e716186f774199f48c2b2")); // Army Surgical Kit
-                            }
+
                             grids[0].Properties.Filters = filters;
                         }
                     }
@@ -102,12 +104,20 @@ public class MedicalSiccCaseAfterDbLoad(
                 item.Properties.Grids = grids;
             }
 
-            System.Console.WriteLine(
-                $"[MedicalSICCcaseCS] Medical SICC internal grid set to {_config.CellH}x{_config.CellV} with medical-only filters.");
+        if (_config.AllowMedBarter)
+            {
+            logger.Success(
+                $"[MedicalSICCcase] Medical SICC internal grid set to {_config.CellH}x{_config.CellV} with med barter items allowed.");
+            }
+        else
+            {
+            logger.Success(
+                $"[MedicalSICCcase] Medical SICC internal grid set to {_config.CellH}x{_config.CellV} without med barter items allowed.");
+            }
         }
         catch (System.Exception ex)
         {
-            System.Console.WriteLine("[MedicalSICCcaseCS] Clone OK but grid resize failed: " + ex.Message);
+            logger.Error("[MedicalSICCcase] Clone OK but grid resize failed: " + ex.Message);
         }
 
         try
@@ -160,11 +170,10 @@ public class MedicalSiccCaseAfterDbLoad(
                 parent.Properties.Grids = grids;
             }
 
-            System.Console.WriteLine("[MedicalSICCcaseCS] Medical SICC allowed in all secure containers.");
         }
         catch (System.Exception ex)
         {
-            System.Console.WriteLine("[MedicalSICCcaseCS] Failed to update container slot filters: " + ex.Message);
+            logger.Error("[MedicalSICCcase] Failed to update container slot filters: " + ex.Message);
         }
 
         // Also allow Medical SICC in extra containers from config

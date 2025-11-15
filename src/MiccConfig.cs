@@ -3,7 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Text.Json;
 
-namespace MedicalSICCcaseCS;
+namespace MedicalSICCcase;
 
 public class MiccConfig
 {
@@ -29,7 +29,7 @@ public class MiccConfig
                 CellH = 5,
                 CellV = 5,
                 ItemWidth = 2,
-                ItemHeight = 2,
+                ItemHeight = 1,
                 AllowMedBarter = true,
                 Containers = new List<string>()
             };

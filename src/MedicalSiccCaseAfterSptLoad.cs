@@ -2,7 +2,7 @@ using SPTarkov.DI.Annotations;
 using SPTarkov.Server.Core.DI;
 using System.Threading.Tasks;
 
-namespace MedicalSICCcaseCS;
+namespace MedicalSICCcase;
 
 [Injectable(TypePriority = OnLoadOrder.PostSptModLoader + 1)]
 public class MedicalSiccCaseAfterSptLoad : IOnLoad
