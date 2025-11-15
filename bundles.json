@@ -1,0 +1,8 @@
+{
+    "manifest": [
+        {
+            "key": "assets/content/items/barter/custom_micc/micc_case.bundle",
+            "dependencyKeys": []
+        }
+    ]
+}

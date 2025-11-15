@@ -4,8 +4,8 @@ $ErrorActionPreference = 'Stop'
 # Paths
 $root = Split-Path -Parent $MyInvocation.MyCommand.Path
 $proj = Join-Path $root 'src/MedicalSICCcaseCS.csproj'
-$outDir = Join-Path $root 'src/bin/Release/MedicalSICCcaseCS'
-$dist = Join-Path $root 'dist/MedicalSICCcaseCS'
+$outDir = Join-Path $root 'src/bin/Release/MedicalSICCcase'
+$dist = Join-Path $root 'dist/MedicalSICCcase'
 
 Write-Host "[pack] Building Release..."
 dotnet build $proj -c Release | Out-Host
@@ -19,8 +19,8 @@ if (Test-Path $dist) { Remove-Item -Recurse -Force $dist }
 New-Item -ItemType Directory -Path $dist | Out-Null
 
 Write-Host "[pack] Copying DLL and PDB..."
-Copy-Item (Join-Path $outDir 'MedicalSICCcaseCS.dll') -Destination $dist -Force
-if (Test-Path (Join-Path $outDir 'MedicalSICCcaseCS.pdb')) { Copy-Item (Join-Path $outDir 'MedicalSICCcaseCS.pdb') -Destination $dist -Force }
+Copy-Item (Join-Path $outDir 'MedicalSICCcase.dll') -Destination $dist -Force
+if (Test-Path (Join-Path $outDir 'MedicalSICCcase.pdb')) { Copy-Item (Join-Path $outDir 'MedicalSICCcase.pdb') -Destination $dist -Force }
 
 Write-Host "[pack] Copying config..."
 $builtConfig = Join-Path $outDir 'config'
@@ -29,6 +29,21 @@ if (Test-Path $builtConfig) {
   Copy-Item $builtConfig -Destination (Join-Path $dist 'config') -Recurse -Force
 } elseif (Test-Path $repoConfig) {
   Copy-Item $repoConfig -Destination (Join-Path $dist 'config') -Recurse -Force
+}
+
+Write-Host "[pack] Copying bundles..."
+$builtConfig = Join-Path $outDir 'bundles'
+$repoConfig = Join-Path $root 'bundles'
+if (Test-Path $builtConfig) {
+  Copy-Item $builtConfig -Destination (Join-Path $dist 'bundles') -Recurse -Force
+} elseif (Test-Path $repoConfig) {
+  Copy-Item $repoConfig -Destination (Join-Path $dist 'bundles') -Recurse -Force
+}
+
+Write-Host "[pack] Copying bundles.json..."
+$bundlesJson = Join-Path $root 'bundles.json'
+if (Test-Path $bundlesJson) {
+  Copy-Item $bundlesJson -Destination (Join-Path $dist 'bundles.json') -Force
 }
 
 Write-Host "[pack] Done. Package at: $dist"

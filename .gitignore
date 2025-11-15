@@ -31,6 +31,9 @@
  **/staticwebassets.build.json.cache
  **/staticwebassets.development.json
 
+# backups
+Bckp/
+
 # Distribution output
 dist/
 src/bin

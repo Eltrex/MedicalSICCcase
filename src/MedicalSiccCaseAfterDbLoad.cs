@@ -45,9 +45,14 @@ public class MedicalSiccCaseAfterDbLoad(
             },
             OverrideProperties = new TemplateItemProperties
             {
-                Name = "Medical SICC",
-                ShortName = "M I C C",
-                Description = "SICC case for medical items."
+                Name = "item_container_micc",
+                ShortName = "item_container_micc",
+                Description = "item_container_micc",
+
+                Prefab = new Prefab
+                {
+                    Path = "assets/content/items/barter/custom_micc/micc_case.bundle",
+                }
             }
         };
 
@@ -82,6 +87,14 @@ public class MedicalSiccCaseAfterDbLoad(
                                 new("543be5664bdc2dd4348b4569"),
                                 new("619cbf7d23893217ec30b689")
                             };
+                            if (_config.AllowMedBarter)
+                            {
+                                filters[0].Filter.Add(new MongoId("57864c8c245977548867e7f1")); // Med Barter
+                            }
+                            {
+                                filters[0].Filter.Add(new MongoId("5c0e718186f774199f48c2b3")); // Field Surgical Kit
+                                filters[0].Filter.Add(new MongoId("5c0e716186f774199f48c2b2")); // Army Surgical Kit
+                            }
                             grids[0].Properties.Filters = filters;
                         }
                     }
