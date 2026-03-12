@@ -88,8 +88,8 @@ public class MedicalSiccCaseAfterDbLoad(
                         {
                             filters[0].Filter = new HashSet<MongoId>
                             {
-                                new("543be5664bdc2dd4348b4569"),
-                                new("619cbf7d23893217ec30b689")
+                                new("543be5664bdc2dd4348b4569"), //Meds
+                                new("619cbf7d23893217ec30b689")  //Injector Case
                             };
 
                             if (_config.AllowMedBarter)
@@ -132,6 +132,7 @@ public class MedicalSiccCaseAfterDbLoad(
                 new("665ee77ccf2d642e98220bca"), // Gamma Unheard
                 new("5c093ca986f7740a1867ab12"), // Kappa
                 new("676008db84e242067d0dc4c9"), // Kappa Cult
+                new("664a55d84a90fc2c8a6305c9"), // Theta
                 new("5732ee6a24597719ae0c0281")  // Waist Pouch
             ];
 
