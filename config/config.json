@@ -6,21 +6,8 @@
   "ItemWidth": 2,
   "ItemHeight": 1,
   "AllowMedBarter": true,
-  "AllowedItemIds": [
-    "543be5664bdc2dd4348b4569",
-     "619cbf7d23893217ec30b689"
-  ],
-  "BlacklistedItemIds": [
-    ""
-  ],
   "Containers": [
     "5c0a840b86f7742ffa4f2482",
     "5b7c710788a4506dec015957"
-  ],
-  "AllowedCategoryIds": [
-    "5b47574386f77428ca22b33b"
-  ],
-  "BlacklistedCategoryIds": [
-    ""
   ]
 }

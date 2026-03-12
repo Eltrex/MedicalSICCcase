@@ -73,7 +73,7 @@ public class MedicalSiccCaseAfterDbLoad(
 
         try
         {
-            // Resize internal grid and apply allowed / blocked items
+            // Resize internal grid and restrict to medical items
             var grids = item.Properties.Grids?.ToList() ?? [];
             if (grids.Count > 0)
             {
@@ -86,64 +86,17 @@ public class MedicalSiccCaseAfterDbLoad(
                         var filters = existingFilters.ToList();
                         if (filters.Count > 0)
                         {
-                            var gridFilter = filters[0];
-
-                            // Build allowed set: config-driven if provided, otherwise default medical categories
-                            HashSet<MongoId> allowed;
-                            if (_config.AllowedItemIds != null && _config.AllowedItemIds.Count > 0)
+                            filters[0].Filter = new HashSet<MongoId>
                             {
-                                allowed = new HashSet<MongoId>(_config.AllowedItemIds
-                                    .Where(id => !string.IsNullOrWhiteSpace(id))
-                                    .Select(id => new MongoId(id)));
-                            }
-                            else
-                            {
-                                allowed = new HashSet<MongoId>
-                                {
-                                    new("543be5664bdc2dd4348b4569"),
-                                    new("619cbf7d23893217ec30b689")
-                                };
-                            }
+                                new("543be5664bdc2dd4348b4569"),
+                                new("619cbf7d23893217ec30b689")
+                            };
 
-                            // Also allow entire categories if configured (category IDs work in Filter too)
-                            if (_config.AllowedCategoryIds != null && _config.AllowedCategoryIds.Count > 0)
-                            {
-                                foreach (var catId in _config.AllowedCategoryIds.Where(id => !string.IsNullOrWhiteSpace(id)))
-                                {
-                                    allowed.Add(new MongoId(catId));
-                                }
-                            }
-
-                            // Optional med-barter inclusion
                             if (_config.AllowMedBarter)
                             {
-                                allowed.Add(new MongoId("57864c8c245977548867e7f1")); // Med Barter
+                                filters[0].Filter.Add(new MongoId("57864c8c245977548867e7f1")); // Med Barter
                             }
 
-                            gridFilter.Filter = allowed;
-
-                            // Apply blacklist via ExcludedFilter when configured (items + categories)
-                            var blacklistSource = new List<string>();
-                            if (_config.BlacklistedItemIds != null)
-                            {
-                                blacklistSource.AddRange(_config.BlacklistedItemIds);
-                            }
-                            if (_config.BlacklistedCategoryIds != null)
-                            {
-                                blacklistSource.AddRange(_config.BlacklistedCategoryIds);
-                            }
-
-                            var blacklistIds = blacklistSource
-                                .Where(id => !string.IsNullOrWhiteSpace(id))
-                                .Select(id => new MongoId(id))
-                                .ToList();
-
-                            if (blacklistIds.Count > 0)
-                            {
-                                gridFilter.ExcludedFilter = new HashSet<MongoId>(blacklistIds);
-                            }
-
-                            filters[0] = gridFilter;
                             grids[0].Properties.Filters = filters;
                         }
                     }

@@ -14,10 +14,6 @@ public class MiccConfig
     public int ItemWidth { get; set; }
     public int ItemHeight { get; set; }
     public bool AllowMedBarter { get; set; }
-    public List<string> AllowedItemIds { get; set; } = new();
-    public List<string> BlacklistedItemIds { get; set; } = new();
-    public List<string> AllowedCategoryIds { get; set; } = new();
-    public List<string> BlacklistedCategoryIds { get; set; } = new();
     public List<string> Containers { get; set; } = new();
 
     public static MiccConfig Load()
@@ -35,10 +31,6 @@ public class MiccConfig
                 ItemWidth = 2,
                 ItemHeight = 1,
                 AllowMedBarter = true,
-                AllowedItemIds = new List<string>(),
-                BlacklistedItemIds = new List<string>(),
-                AllowedCategoryIds = new List<string>(),
-                BlacklistedCategoryIds = new List<string>(),
                 Containers = new List<string>()
             };
         }
